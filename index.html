@@ -23,7 +23,7 @@
       align-items: center; justify-content: center;
       padding: 24px;
     }
-    .wrap { width: 100%; max-width: 520px; }
+    .wrap { width: 100%; max-width: 540px; }
     .logo { text-align: center; margin-bottom: 32px; font-size: 1.1rem; font-weight: 700; color: var(--navy); }
     .logo span { color: var(--blue); }
     .progress-wrap { margin-bottom: 28px; }
@@ -47,18 +47,82 @@
     @keyframes spin { to { transform: rotate(360deg); } }
     .loading-title { font-size: 1.3rem; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
     .loading-sub { font-size: 0.875rem; color: var(--mid); }
+
+    /* RESULTS */
     .results { animation: fadeUp 0.4s ease; }
-    .results-header { background: var(--navy); border-radius: 20px 20px 0 0; padding: 32px 36px; }
-    .results-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #7ab8ff; margin-bottom: 8px; }
-    .results-title { font-size: 1.5rem; font-weight: 800; color: white; letter-spacing: -0.02em; }
-    .results-body { background: white; border-radius: 0 0 20px 20px; padding: 32px 36px; box-shadow: 0 8px 40px rgba(0,0,0,0.1); }
-    .result-text { font-size: 0.9rem; line-height: 1.8; color: #475569; white-space: pre-wrap; }
+    .results-header {
+      background: var(--navy); border-radius: 20px 20px 0 0;
+      padding: 28px 32px;
+    }
+    .results-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #7ab8ff; margin-bottom: 6px; }
+    .results-title { font-size: 1.4rem; font-weight: 800; color: white; letter-spacing: -0.02em; }
+
+    .results-body { background: white; border-radius: 0 0 20px 20px; padding: 28px 32px; box-shadow: 0 8px 40px rgba(0,0,0,0.1); }
+
+    .plan-summary {
+      background: #f8faff;
+      border-left: 3px solid var(--blue);
+      padding: 14px 16px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: #475569;
+      margin-bottom: 24px;
+    }
+
+    .stack-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 14px;
+    }
+
+    .supp-card {
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 12px;
+      transition: box-shadow 0.2s;
+    }
+    .supp-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+
+    .supp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; gap: 12px; }
+    .supp-name { font-size: 1rem; font-weight: 700; color: var(--navy); }
+    .supp-buy {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--blue); color: white;
+      font-size: 0.72rem; font-weight: 700;
+      padding: 5px 12px; border-radius: 20px;
+      text-decoration: none; white-space: nowrap;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .supp-buy:hover { background: #1a6ae0; }
+
+    .supp-row { display: flex; gap: 6px; margin-bottom: 6px; align-items: flex-start; }
+    .supp-tag {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--blue);
+      background: #eef3ff; padding: 2px 8px; border-radius: 4px;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .supp-text { font-size: 0.85rem; color: #475569; line-height: 1.55; }
+    .supp-why { font-size: 0.82rem; color: #64748b; font-style: italic; margin-top: 4px; padding-top: 8px; border-top: 1px solid rgba(0,0,0,0.05); }
+
+    .pro-tip {
+      background: linear-gradient(135deg, #0D1B2A, #1a3a5c);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-top: 20px;
+    }
+    .pro-tip-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #7ab8ff; margin-bottom: 6px; }
+    .pro-tip-text { font-size: 0.875rem; color: rgba(255,255,255,0.85); line-height: 1.65; }
+
     .error-box { background: #fff5f5; border: 1px solid #fed7d7; border-radius: 10px; padding: 16px; margin-bottom: 16px; font-size: 0.85rem; color: #c53030; }
-    .restart-btn { margin-top: 24px; width: 100%; padding: 13px; background: transparent; border: 1.5px solid rgba(0,0,0,0.1); border-radius: 10px; font-family: var(--inter); font-size: 0.875rem; font-weight: 600; color: #94a3b8; cursor: pointer; transition: all 0.2s; }
+
+    .restart-btn { margin-top: 20px; width: 100%; padding: 13px; background: transparent; border: 1.5px solid rgba(0,0,0,0.1); border-radius: 10px; font-family: var(--inter); font-size: 0.875rem; font-weight: 600; color: #94a3b8; cursor: pointer; transition: all 0.2s; }
     .restart-btn:hover { border-color: var(--navy); color: var(--navy); }
     .powered { text-align: center; margin-top: 18px; font-size: 0.7rem; color: #94a3b8; letter-spacing: 0.06em; }
     .powered span { color: var(--blue); font-weight: 600; }
-    @media (max-width: 480px) { .card, .results-header, .results-body { padding: 28px 22px; } .q-title { font-size: 1.3rem; } }
+    @media (max-width: 480px) { .card, .results-header, .results-body { padding: 24px 20px; } .q-title { font-size: 1.3rem; } }
   </style>
 </head>
 <body>
@@ -110,6 +174,40 @@ const questions = [
     { icon: "🥇", label: "I compete / train professionally" },
   ]}
 ];
+
+// Supplement buy links (MyProtein affiliate — replace with real affiliate links later)
+const suppLinks = {
+  'whey protein': 'https://www.myprotein.com/sports-nutrition/impact-whey-protein/10530943.html',
+  'whey protein isolate': 'https://www.myprotein.com/sports-nutrition/impact-whey-isolate/10530911.html',
+  'creatine': 'https://www.myprotein.com/sports-nutrition/creatine-monohydrate/10530667.html',
+  'creatine monohydrate': 'https://www.myprotein.com/sports-nutrition/creatine-monohydrate/10530667.html',
+  'omega-3': 'https://www.myprotein.com/sports-nutrition/omega-3/10530716.html',
+  'omega-3 fish oil': 'https://www.myprotein.com/sports-nutrition/omega-3/10530716.html',
+  'fish oil': 'https://www.myprotein.com/sports-nutrition/omega-3/10530716.html',
+  'caffeine': 'https://www.myprotein.com/sports-nutrition/caffeine-tablets/10530490.html',
+  'pre-workout': 'https://www.myprotein.com/sports-nutrition/the-pre-workout/10530698.html',
+  'bcaa': 'https://www.myprotein.com/sports-nutrition/bcaa/10530401.html',
+  'bcaas': 'https://www.myprotein.com/sports-nutrition/bcaa/10530401.html',
+  'vitamin d': 'https://www.myprotein.com/sports-nutrition/vitamin-d/10530743.html',
+  'vitamin d3': 'https://www.myprotein.com/sports-nutrition/vitamin-d/10530743.html',
+  'magnesium': 'https://www.myprotein.com/sports-nutrition/magnesium-bisglycinate/10530636.html',
+  'collagen': 'https://www.myprotein.com/sports-nutrition/collagen-protein/10530512.html',
+  'glutamine': 'https://www.myprotein.com/sports-nutrition/glutamine/10530577.html',
+  'electrolytes': 'https://www.myprotein.com/sports-nutrition/electrolyte-powder/10795162.html',
+  'protein bar': 'https://www.myprotein.com/sports-nutrition/layered-bar/10530600.html',
+  'multivitamin': 'https://www.myprotein.com/sports-nutrition/daily-vitamins/10530564.html',
+  'zinc': 'https://www.myprotein.com/sports-nutrition/zinc/10530748.html',
+  'l-carnitine': 'https://www.myprotein.com/sports-nutrition/l-carnitine/10530609.html',
+};
+
+function getBuyLink(suppName) {
+  const key = suppName.toLowerCase().trim();
+  for (const [k, url] of Object.entries(suppLinks)) {
+    if (key.includes(k) || k.includes(key)) return url;
+  }
+  // fallback — search MyProtein
+  return `https://www.myprotein.com/search?query=${encodeURIComponent(suppName)}`;
+}
 
 let current = 0, answers = [];
 
@@ -171,89 +269,97 @@ function showLoading() {
 
 async function getRecommendation() {
   const profile = answers.map(a => `• ${a.q}: ${a.a}`).join('\n');
-  const prompt = `You are SuppleFit AI, a premium supplement advisor for gym members. A member just completed a quiz.
+  const prompt = `You are SuppleFit AI, a premium supplement advisor for gym members.
 
-Their profile:
+Member profile:
 ${profile}
 
-Write a personalised supplement recommendation using EXACTLY this format (use the arrow → and section headers as shown):
+Respond ONLY with a valid JSON object, no markdown, no extra text. Use this exact structure:
+{
+  "summary": "2 sentences about their profile and what they need most",
+  "supplements": [
+    {
+      "name": "Supplement Name",
+      "benefit": "One sentence benefit",
+      "dose": "Specific dose and timing",
+      "why": "One sentence why it suits their specific goal"
+    }
+  ],
+  "tip": "One practical tip specific to their goal and training"
+}
 
-YOUR PERSONALISED SUPPLEMENT PLAN
-
-[Write 2 sentences summarising their profile and what they need most]
-
-RECOMMENDED STACK:
-
-→ [Supplement Name]
-Benefit: [one sentence]
-Dose & timing: [specific recommendation]
-Why for you: [one sentence tied to their specific goal]
-
-→ [Supplement Name]
-Benefit: [one sentence]
-Dose & timing: [specific recommendation]
-Why for you: [one sentence tied to their specific goal]
-
-→ [Supplement Name]
-Benefit: [one sentence]
-Dose & timing: [specific recommendation]
-Why for you: [one sentence tied to their specific goal]
-
-→ [Supplement Name]
-Benefit: [one sentence]
-Dose & timing: [specific recommendation]
-Why for you: [one sentence tied to their specific goal]
-
-PRO TIP:
-[One practical, specific tip for their goal and training type]
-
-Be confident, specific, and sound like a knowledgeable coach — not a generic supplement brand. Recommend exactly 4 supplements.`;
+Recommend exactly 4 supplements. Be specific and coach-like, not generic. No markdown formatting in your response.`;
 
   try {
- const res = await fetch("/api/recommend", {
+    const res = await fetch("/api/recommend", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ profile: prompt })
     });
 
-    if (!res.ok) {
-      const err = await res.text();
-      throw new Error(`API error ${res.status}: ${err}`);
-    }
-
+    if (!res.ok) throw new Error(`Server error ${res.status}`);
     const data = await res.json();
-
-    if (!data.content || !data.content.length) {
-      throw new Error('Empty response from API');
-    }
-
     const text = data.content.map(i => i.type === 'text' ? i.text : '').filter(Boolean).join('');
-    if (!text.trim()) throw new Error('No text in response');
 
-    showResults(text);
+    // Parse JSON from AI response
+    const clean = text.replace(/```json|```/g, '').trim();
+    const parsed = JSON.parse(clean);
+    showResults(parsed);
   } catch(e) {
     console.error('Error:', e);
-    showResults(null, e.message);
+    showError(e.message);
   }
 }
 
-function escHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-function showResults(text, errorMsg) {
-  const errorHtml = errorMsg ? `<div class="error-box">⚠️ Could not load AI recommendation: ${escHtml(errorMsg)}. Please try again.</div>` : '';
-  const resultHtml = text ? `<div class="result-text">${escHtml(text)}</div>` : '';
+function showResults(plan) {
+  const suppsHtml = plan.supplements.map(s => `
+    <div class="supp-card">
+      <div class="supp-header">
+        <div class="supp-name">${s.name}</div>
+        <a class="supp-buy" href="${getBuyLink(s.name)}" target="_blank" rel="noopener">
+          Buy → 
+        </a>
+      </div>
+      <div class="supp-row">
+        <span class="supp-tag">Benefit</span>
+        <span class="supp-text">${s.benefit}</span>
+      </div>
+      <div class="supp-row">
+        <span class="supp-tag">Dose</span>
+        <span class="supp-text">${s.dose}</span>
+      </div>
+      <div class="supp-why">💡 ${s.why}</div>
+    </div>
+  `).join('');
 
   document.getElementById('quizArea').innerHTML = `
     <div class="results">
       <div class="results-header">
         <div class="results-label">Your personalised plan</div>
-        <div class="results-title">${text ? "Here's your supplement stack" : "Something went wrong"}</div>
+        <div class="results-title">Here's your supplement stack</div>
       </div>
       <div class="results-body">
-        ${errorHtml}
-        ${resultHtml}
+        <div class="plan-summary">${plan.summary}</div>
+        <div class="stack-label">Recommended Stack</div>
+        ${suppsHtml}
+        <div class="pro-tip">
+          <div class="pro-tip-label">⚡ Pro Tip</div>
+          <div class="pro-tip-text">${plan.tip}</div>
+        </div>
+        <button class="restart-btn" onclick="restart()">↺ Start over</button>
+      </div>
+    </div>`;
+}
+
+function showError(msg) {
+  document.getElementById('quizArea').innerHTML = `
+    <div class="results">
+      <div class="results-header">
+        <div class="results-label">Something went wrong</div>
+        <div class="results-title">Please try again</div>
+      </div>
+      <div class="results-body">
+        <div class="error-box">⚠️ ${msg}</div>
         <button class="restart-btn" onclick="restart()">↺ Start over</button>
       </div>
     </div>`;
