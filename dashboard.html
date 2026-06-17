@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SuppleFit AI — Gym Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0D1B2A; --blue: #2E7CF6; --white: #fff;
+      --off: #F0F2F5; --mid: #64748b; --inter: 'Inter', sans-serif;
+    }
+    body { background: var(--off); font-family: var(--inter); min-height: 100vh; }
+
+    /* NAV */
+    nav {
+      background: var(--navy); padding: 0 32px; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-size: 1rem; font-weight: 700; color: white; }
+    .nav-logo span { color: var(--blue); }
+    .nav-right { font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+
+    /* LAYOUT */
+    .container { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+
+    /* HEADER */
+    .page-header { margin-bottom: 32px; }
+    .page-header h1 { font-size: 1.8rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; }
+    .page-header p { font-size: 0.9rem; color: var(--mid); margin-top: 4px; }
+
+    /* CARDS */
+    .card { background: white; border-radius: 16px; padding: 28px; margin-bottom: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+    .card-title { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+    .card-title span { background: rgba(46,124,246,0.1); color: var(--blue); width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; }
+
+    /* FORM */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 0.78rem; font-weight: 600; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; }
+    .form-group input, .form-group select {
+      padding: 10px 14px; border: 1.5px solid rgba(0,0,0,0.1); border-radius: 8px;
+      font-family: var(--inter); font-size: 0.875rem; color: var(--navy);
+      transition: border-color 0.2s; background: white;
+    }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--blue); }
+    .form-full { grid-column: 1 / -1; }
+
+    .btn {
+      padding: 11px 24px; border-radius: 8px; border: none;
+      font-family: var(--inter); font-size: 0.875rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-primary { background: var(--blue); color: white; }
+    .btn-primary:hover { background: #1a6ae0; }
+    .btn-outline { background: transparent; border: 1.5px solid rgba(0,0,0,0.12); color: var(--navy); }
+    .btn-outline:hover { border-color: var(--navy); }
+    .btn-danger { background: #fff5f5; color: #e53e3e; border: 1.5px solid #fed7d7; }
+    .btn-danger:hover { background: #fed7d7; }
+    .btn-sm { padding: 6px 14px; font-size: 0.78rem; }
+
+    /* PRODUCTS TABLE */
+    .products-table { width: 100%; border-collapse: collapse; }
+    .products-table th { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--off); }
+    .products-table td { padding: 12px 12px; font-size: 0.875rem; color: #475569; border-bottom: 1px solid var(--off); }
+    .products-table tr:last-child td { border-bottom: none; }
+    .supp-badge { display: inline-block; background: #eef3ff; color: var(--blue); font-size: 0.72rem; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
+
+    /* EMBED CODE */
+    .embed-box {
+      background: var(--navy); border-radius: 10px; padding: 16px 20px;
+      font-family: monospace; font-size: 0.8rem; color: #7ab8ff;
+      word-break: break-all; line-height: 1.6;
+    }
+    .copy-btn {
+      margin-top: 12px; display: inline-flex; align-items: center; gap: 6px;
+      background: var(--blue); color: white; border: none;
+      padding: 8px 16px; border-radius: 6px; font-family: var(--inter);
+      font-size: 0.8rem; font-weight: 600; cursor: pointer;
+    }
+
+    /* STATS */
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+    .stat-num { font-size: 2rem; font-weight: 800; color: var(--navy); letter-spacing: -0.03em; }
+    .stat-num span { color: var(--blue); }
+    .stat-label { font-size: 0.78rem; color: var(--mid); margin-top: 2px; }
+
+    /* ALERT */
+    .alert { padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; margin-bottom: 16px; display: none; }
+    .alert-success { background: #f0fff4; border: 1px solid #9ae6b4; color: #276749; }
+    .alert-error { background: #fff5f5; border: 1px solid #fed7d7; color: #c53030; }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Supple<span>Fit</span> AI — Dashboard</div>
+  <div class="nav-right" id="gymNameDisplay">Loading...</div>
+</nav>
+
+<div class="container">
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num" id="statQuizzes">0</div>
+      <div class="stat-label">Total quizzes completed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statProducts">0</div>
+      <div class="stat-label">Products in your catalogue</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">✓</div>
+      <div class="stat-label">Quiz widget active</div>
+    </div>
+  </div>
+
+  <!-- GYM SETUP -->
+  <div class="card">
+    <div class="card-title"><span>1</span> Your Gym Profile</div>
+    <div id="alertBox" class="alert"></div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Gym Name</label>
+        <input type="text" id="gymName" placeholder="e.g. London CrossFit"/>
+      </div>
+      <div class="form-group">
+        <label>Your Email</label>
+        <input type="email" id="gymEmail" placeholder="owner@yourgym.com"/>
+      </div>
+      <div class="form-group">
+        <label>Gym URL Slug</label>
+        <input type="text" id="gymSlug" placeholder="e.g. london-crossfit"/>
+      </div>
+      <div class="form-group">
+        <label>Logo URL (optional)</label>
+        <input type="text" id="gymLogo" placeholder="https://yourgym.com/logo.png"/>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="saveGym()">Save gym profile</button>
+  </div>
+
+  <!-- ADD PRODUCT -->
+  <div class="card">
+    <div class="card-title"><span>2</span> Add Your Products & Affiliate Links</div>
+    <p style="font-size:0.85rem;color:#64748b;margin-bottom:20px">Add the supplements you sell or have affiliate links for. The AI will recommend these to your members.</p>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Supplement Type</label>
+        <select id="suppType">
+          <option value="">Select type...</option>
+          <option>Whey Protein</option>
+          <option>Whey Protein Isolate</option>
+          <option>Creatine Monohydrate</option>
+          <option>Pre-Workout</option>
+          <option>BCAA</option>
+          <option>Omega-3 Fish Oil</option>
+          <option>Vitamin D3</option>
+          <option>Magnesium</option>
+          <option>Collagen</option>
+          <option>Glutamine</option>
+          <option>Electrolytes</option>
+          <option>Multivitamin</option>
+          <option>L-Carnitine</option>
+          <option>Zinc</option>
+          <option>Protein Bar</option>
+          <option>Mass Gainer</option>
+          <option>Fat Burner</option>
+          <option>Caffeine</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Product Name</label>
+        <input type="text" id="productName" placeholder="e.g. Impact Whey Protein"/>
+      </div>
+      <div class="form-group form-full">
+        <label>Your Affiliate / Buy Link</label>
+        <input type="text" id="buyUrl" placeholder="https://myprotein.com/your-product?ref=yourgymcode"/>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="addProduct()">Add product</button>
+  </div>
+
+  <!-- PRODUCTS LIST -->
+  <div class="card">
+    <div class="card-title"><span>3</span> Your Product Catalogue</div>
+    <div id="productsList">
+      <p style="color:#94a3b8;font-size:0.875rem">No products added yet. Add your first product above.</p>
+    </div>
+  </div>
+
+  <!-- EMBED CODE -->
+  <div class="card">
+    <div class="card-title"><span>4</span> Your Embed Code</div>
+    <p style="font-size:0.85rem;color:#64748b;margin-bottom:16px">Paste this one line of code anywhere on your gym website. Members will see the quiz instantly.</p>
+    <div class="embed-box" id="embedCode">Save your gym profile first to generate your embed code.</div>
+    <button class="copy-btn" onclick="copyEmbed()">📋 Copy embed code</button>
+  </div>
+
+</div>
+
+<script>
+  // Get gym slug from URL params or use default
+  const urlParams = new URLSearchParams(window.location.search);
+  let currentGymId = null;
+  let currentSlug = urlParams.get('gym') || '';
+
+  // Load gym data on page load
+  async function loadGym() {
+    if (!currentSlug) return;
+    try {
+      const res = await fetch(`/api/gym?slug=${currentSlug}`);
+      const data = await res.json();
+      if (data.gym) {
+        document.getElementById('gymName').value = data.gym.name || '';
+        document.getElementById('gymEmail').value = data.gym.email || '';
+        document.getElementById('gymSlug').value = data.gym.slug || '';
+        document.getElementById('gymLogo').value = data.gym.logo_url || '';
+        document.getElementById('gymNameDisplay').textContent = data.gym.name;
+        currentGymId = data.gym.id;
+        updateEmbedCode(data.gym.slug);
+        if (data.products) renderProducts(data.products);
+        if (data.quizCount !== undefined) document.getElementById('statQuizzes').textContent = data.quizCount;
+        document.getElementById('statProducts').textContent = (data.products || []).length;
+      }
+    } catch(e) { console.error(e); }
+  }
+
+  async function saveGym() {
+    const name = document.getElementById('gymName').value.trim();
+    const email = document.getElementById('gymEmail').value.trim();
+    const slug = document.getElementById('gymSlug').value.trim().toLowerCase().replace(/\s+/g, '-');
+    const logo_url = document.getElementById('gymLogo').value.trim();
+
+    if (!name || !email || !slug) return showAlert('Please fill in gym name, email and slug.', 'error');
+
+    try {
+      const res = await fetch('/api/gym', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, slug, logo_url })
+      });
+      const data = await res.json();
+      if (data.gym) {
+        currentGymId = data.gym.id;
+        currentSlug = data.gym.slug;
+        document.getElementById('gymNameDisplay').textContent = name;
+        updateEmbedCode(slug);
+        showAlert('Gym profile saved! ✓', 'success');
+        window.history.replaceState({}, '', `?gym=${slug}`);
+      } else {
+        showAlert(data.error || 'Something went wrong', 'error');
+      }
+    } catch(e) { showAlert(e.message, 'error'); }
+  }
+
+  async function addProduct() {
+    if (!currentGymId) return showAlert('Save your gym profile first.', 'error');
+    const supplement_type = document.getElementById('suppType').value;
+    const product_name = document.getElementById('productName').value.trim();
+    const buy_url = document.getElementById('buyUrl').value.trim();
+
+    if (!supplement_type || !product_name || !buy_url) return showAlert('Please fill in all product fields.', 'error');
+
+    try {
+      const res = await fetch('/api/gym', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ gym_id: currentGymId, supplement_type, product_name, buy_url })
+      });
+      const data = await res.json();
+      if (data.product) {
+        showAlert('Product added! ✓', 'success');
+        document.getElementById('suppType').value = '';
+        document.getElementById('productName').value = '';
+        document.getElementById('buyUrl').value = '';
+        loadGym();
+      } else {
+        showAlert(data.error || 'Something went wrong', 'error');
+      }
+    } catch(e) { showAlert(e.message, 'error'); }
+  }
+
+  function renderProducts(products) {
+    if (!products.length) {
+      document.getElementById('productsList').innerHTML = '<p style="color:#94a3b8;font-size:0.875rem">No products added yet.</p>';
+      return;
+    }
+    document.getElementById('productsList').innerHTML = `
+      <table class="products-table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Product Name</th>
+            <th>Affiliate Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${products.map(p => `
+            <tr>
+              <td><span class="supp-badge">${p.supplement_type}</span></td>
+              <td>${p.product_name}</td>
+              <td><a href="${p.buy_url}" target="_blank" style="color:var(--blue);font-size:0.8rem">View link →</a></td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+    document.getElementById('statProducts').textContent = products.length;
+  }
+
+  function updateEmbedCode(slug) {
+    const url = window.location.origin;
+    document.getElementById('embedCode').textContent = `<script src="${url}/widget.js?gym=${slug}"><\/script>`;
+  }
+
+  function copyEmbed() {
+    const code = document.getElementById('embedCode').textContent;
+    navigator.clipboard.writeText(code);
+    showAlert('Embed code copied to clipboard! ✓', 'success');
+  }
+
+  function showAlert(msg, type) {
+    const box = document.getElementById('alertBox');
+    box.textContent = msg;
+    box.className = `alert alert-${type}`;
+    box.style.display = 'block';
+    setTimeout(() => box.style.display = 'none', 4000);
+  }
+
+  loadGym();
+</script>
+</body>
+</html>
