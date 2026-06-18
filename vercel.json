@@ -2,6 +2,7 @@
   "rewrites": [
     { "source": "/quiz", "destination": "/quiz.html" },
     { "source": "/dashboard", "destination": "/dashboard.html" },
+    { "source": "/login", "destination": "/login.html" },
     { "source": "/api/recommend", "destination": "/api/recommend.js" },
     { "source": "/api/gym", "destination": "/api/gym.js" }
   ]
