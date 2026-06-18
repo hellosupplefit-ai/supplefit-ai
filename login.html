@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SuppleFit AI — Gym Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --navy: #0D1B2A; --blue: #2E7CF6; --off: #F0F2F5; --mid: #64748b; --inter: 'Inter', sans-serif; }
+    body {
+      background: linear-gradient(160deg, #f8faff 0%, #eef3ff 60%, #f0f2f5 100%);
+      min-height: 100vh; font-family: var(--inter);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    .logo { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 40px; text-align: center; }
+    .logo span { color: var(--blue); }
+    .card {
+      background: white; border-radius: 20px; padding: 40px 36px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.07); width: 100%; max-width: 420px;
+    }
+    h1 { font-size: 1.6rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; margin-bottom: 8px; }
+    .subtitle { font-size: 0.875rem; color: var(--mid); margin-bottom: 32px; line-height: 1.6; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 6px; }
+    input {
+      width: 100%; padding: 12px 16px; border: 1.5px solid rgba(0,0,0,0.1);
+      border-radius: 10px; font-family: var(--inter); font-size: 0.95rem; color: var(--navy);
+      transition: border-color 0.2s;
+    }
+    input:focus { outline: none; border-color: var(--blue); }
+    .btn {
+      width: 100%; padding: 14px; background: var(--blue); color: white; border: none;
+      border-radius: 10px; font-family: var(--inter); font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 16px rgba(46,124,246,0.3);
+    }
+    .btn:hover { background: #1a6ae0; transform: translateY(-1px); }
+    .error { background: #fff5f5; border: 1px solid #fed7d7; color: #c53030; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; margin-bottom: 16px; display: none; }
+    .divider { text-align: center; margin: 28px 0 20px; }
+    .divider p { font-size: 0.8rem; color: #94a3b8; }
+    .signup-link { text-align: center; }
+    .signup-link a { color: var(--blue); font-size: 0.875rem; font-weight: 600; text-decoration: none; }
+    .signup-link a:hover { text-decoration: underline; }
+    .back-link { text-align: center; margin-top: 24px; }
+    .back-link a { color: #94a3b8; font-size: 0.8rem; text-decoration: none; }
+    .back-link a:hover { color: var(--navy); }
+  </style>
+</head>
+<body>
+  <div class="logo">Supple<span>Fit</span> AI</div>
+  <div class="card">
+    <h1>Gym Login</h1>
+    <p class="subtitle">Enter your gym slug to access your dashboard and manage your supplement advisor.</p>
+    <div id="errorBox" class="error"></div>
+    <div class="form-group">
+      <label>Your Gym Slug</label>
+      <input type="text" id="slugInput" placeholder="e.g. london-crossfit" onkeydown="if(event.key==='Enter')login()"/>
+    </div>
+    <button class="btn" onclick="login()">Go to my dashboard →</button>
+    <div class="divider"><p>Don't have an account yet?</p></div>
+    <div class="signup-link">
+      <a href="/#pricing">Get started — from £99/month →</a>
+    </div>
+  </div>
+  <div class="back-link"><a href="/">← Back to supplefitai.com</a></div>
+
+  <script>
+    async function login() {
+      const slug = document.getElementById('slugInput').value.trim().toLowerCase();
+      if (!slug) return showError('Please enter your gym slug.');
+
+      try {
+        const res = await fetch(`/api/gym?slug=${slug}`);
+        const data = await res.json();
+        if (data.gym) {
+          window.location.href = `/dashboard?gym=${slug}`;
+        } else {
+          showError('Gym not found. Check your slug or contact hello@supplefitai.com');
+        }
+      } catch(e) {
+        showError('Something went wrong. Please try again.');
+      }
+    }
+
+    function showError(msg) {
+      const box = document.getElementById('errorBox');
+      box.textContent = msg;
+      box.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
