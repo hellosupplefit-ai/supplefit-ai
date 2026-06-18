@@ -42,7 +42,14 @@ export default async function handler(req, res) {
       ? `\n\nThis gym sells these specific products. Where possible, recommend these exact products:\n${gymProducts.map(p => `- ${p.supplement_type}: "${p.product_name}" (buy: ${p.buy_url})`).join('\n')}`
       : '';
 
-    const fullPrompt = profile + productContext;
+    const randomStyle = [
+  "Be conversational and encouraging, like a friendly personal trainer. Use casual language, feel warm and supportive.",
+  "Be direct and no-nonsense, like a serious competitive athlete giving advice. Short sentences. No fluff.",
+  "Be detailed and scientific, like a sports nutritionist. Use proper terminology and explain the reasoning behind each recommendation.",
+  "Be motivating and high energy, like a hype coach. Use exclamation marks, be enthusiastic, make them feel fired up.",
+][Math.floor(Math.random() * 4)];
+
+const fullPrompt = profile + productContext + `\n\nIMPORTANT: ${randomStyle} Keep the exact JSON format but let your personality show through in the text fields.`;
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
